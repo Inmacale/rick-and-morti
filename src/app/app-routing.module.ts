@@ -1,17 +1,33 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { FooterButtonComponent } from './component/footer-button/footer-button.component';
+
 
 const routes: Routes = [
 
-  {
-    path: '',
-    redirectTo: 'my-favorites',
-    pathMatch: 'full'
-  },
-  {
-    path: 'my-favorites',
-    loadChildren: () => import('./my-favorites/my-favorites.module').then(m => m.MyFavoritesPageModule)
-  },
+{
+  path: '',
+  component: FooterButtonComponent,
+  children:[
+    {
+      path: '',
+      redirectTo: 'my-favorites',
+      pathMatch: 'full'
+    },
+  
+  
+    {
+      path: 'my-favorites',
+      loadChildren: () => import('./page/my-favorites/my-favorites.module').then( m => m.MyFavoritesPageModule)
+    },
+    {
+      path: 'characters',
+      loadChildren: () => import('./page/characters/characters.module').then( m => m.CharactersPageModule)
+    },
+  
+  ]
+}
+
 ];
 
 @NgModule({
