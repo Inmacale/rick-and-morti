@@ -5,29 +5,32 @@ import { FooterButtonComponent } from './component/footer-button/footer-button.c
 
 const routes: Routes = [
 
-{
-  path: '',
-  component: FooterButtonComponent,
-  children:[
-    {
-      path: '',
-      redirectTo: 'my-favorites',
-      pathMatch: 'full'
-    },
-  
-  
-    {
-      path: 'my-favorites',
-      loadChildren: () => import('./page/my-favorites/my-favorites.module').then( m => m.MyFavoritesPageModule)
-    },
-    {
-      path: 'characters',
-      loadChildren: () => import('./page/characters/characters.module').then( m => m.CharactersPageModule)
-    },
-  
-  ]
-}
+  {
+    path: '',
+    component: FooterButtonComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'my-favorites',
+        pathMatch: 'full'
+      },
 
+
+      {
+        path: 'my-favorites',
+        loadChildren: () => import('./page/my-favorites/my-favorites.module').then(m => m.MyFavoritesPageModule)
+      },
+      {
+        path: 'characters',
+        loadChildren: () => import('./page/characters/characters.module').then(m => m.CharactersPageModule)
+      },
+      {
+        path: 'profile',
+        loadChildren: () => import('./page/profile/profile.module').then(m => m.ProfilePageModule)
+      }
+
+    ]
+  }
 ];
 
 @NgModule({
