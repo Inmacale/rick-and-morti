@@ -7,8 +7,8 @@
 <ion-content [fullscreen]="true">
   <ion-searchbar></ion-searchbar>
   <ion-list>
-    <ion-item-sliding *ngFor="let x of ['rick','morty', 'inma']">
-      <ion-item>
+    <ion-item-sliding *ngFor="let x of ['rick','morty', 'inma']" >
+      <ion-item [routerLink]="['/profile']">
         <ion-avatar slot="start">
           <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
         </ion-avatar>

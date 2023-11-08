@@ -23,13 +23,13 @@ const routes: Routes = [
       {
         path: 'characters',
         loadChildren: () => import('./page/characters/characters.module').then(m => m.CharactersPageModule)
-      },
-      {
-        path: 'profile',
-        loadChildren: () => import('./page/profile/profile.module').then(m => m.ProfilePageModule)
       }
 
     ]
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./page/profile/profile.module').then(m => m.ProfilePageModule)
   }
 ];
 
