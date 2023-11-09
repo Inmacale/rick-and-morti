@@ -9,7 +9,7 @@ import { AlertController } from '@ionic/angular';
 export class CharactersPage implements OnInit {
   isFavorite: boolean = false;
 
-  constructor(private alertController: AlertController) { }
+  constructor(private alertController: AlertController,) { }
 
   ngOnInit() {
   }
@@ -40,7 +40,8 @@ export class CharactersPage implements OnInit {
     } else {
       this.isFavorite = !this.isFavorite;
     }
-
   }
+
+
 
 }

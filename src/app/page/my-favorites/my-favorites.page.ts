@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 
 
 @Component({
@@ -9,7 +9,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class MyFavoritesPage implements OnInit {
 
-  constructor(private alertController: AlertController) { }
+  constructor(private alertController: AlertController, private navCtrl: NavController) { }
 
   ngOnInit() {
   }
@@ -37,5 +37,9 @@ export class MyFavoritesPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  navigateToCharacters() {
+    this.navCtrl.navigateForward('/characters');
   }
 }
