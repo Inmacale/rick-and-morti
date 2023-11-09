@@ -2,42 +2,39 @@
   <ion-toolbar>
     <ion-title>characters</ion-title>
   </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button>
-        <ion-searchbar></ion-searchbar>
-      </ion-button>
-    </ion-buttons>
+    <ion-searchbar placeholder="Name Charater"></ion-searchbar>
     <ion-buttons slot="end">
       <ion-button id="popover-button">
         <ion-icon slot="icon-only" name="funnel"></ion-icon>
-        <ion-popover trigger="popover-button">
-          <ng-template>
-            <ion-content>
-              <ion-list>
-                <ion-item>
-                  <ion-toggle>nombre</ion-toggle>
-                </ion-item>
-                <ion-item>
-                  <ion-toggle>status</ion-toggle>
-                </ion-item>
-                <ion-item>
-                  <ion-toggle>species</ion-toggle>
-                </ion-item>
-                <ion-item>
-                  <ion-toggle>gender</ion-toggle>
-                </ion-item>
-              </ion-list>
-            </ion-content>
-          </ng-template>
-
-        </ion-popover>
       </ion-button>
+      <ion-popover trigger="popover-button">
+        <ng-template>
+          <ion-content>
+            <ion-list>
+              <ion-item>
+                Ordenar por
+              </ion-item>
+              <ion-item>
+                <ion-toggle>status</ion-toggle>
+              </ion-item>
+              <ion-item>
+                <ion-toggle>species</ion-toggle>
+              </ion-item>
+              <ion-item>
+                <ion-toggle>gender</ion-toggle>
+              </ion-item>
+            </ion-list>
+          </ion-content>
+        </ng-template>
+      </ion-popover>
     </ion-buttons>
   </ion-toolbar>
+
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
 
   <ion-list>
     <ion-item-sliding *ngFor="let x of ['rick','morty', 'inma']">

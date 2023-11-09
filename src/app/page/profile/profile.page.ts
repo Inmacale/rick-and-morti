@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 
@@ -9,19 +8,16 @@ import { AlertController } from '@ionic/angular';
 })
 export class ProfilePage implements OnInit {
 
-  isFavorite :boolean=false; 
-  
-  constructor(private location: Location, private alertController: AlertController) { }
+  isFavorite: boolean = false;
+
+  constructor(private alertController: AlertController) { }
 
   ngOnInit() {
   }
 
-  goBack():void{
-    this.location.back();
-  }
 
-  async toggleFavorite(){
-    if(this.isFavorite){
+  async toggleFavorite() {
+    if (this.isFavorite) {
       const alert = await this.alertController.create({
         header: 'Quitar favorito',
         message: `¿Estás seguro de que quieres quitar como favorito?`,
@@ -39,13 +35,13 @@ export class ProfilePage implements OnInit {
           }
         ]
       });
-  
+
       await alert.present();
 
-    }else{
+    } else {
       this.isFavorite = !this.isFavorite;
     }
-    
+
   }
 
 
