@@ -10,12 +10,28 @@ export class CharactersDataManagementService {
 
   }
 
-  getCharactersFindId(id: number) {
-    return this.rest.getCharacterId(id).subscribe(res => { console.log(res) })
+  getCharactersFindId(id: number): Promise<any> {
+    return this.rest.getCharacterId(id).toPromise()
+      .then(res => {
+        console.log(res);
+        return res; // Puedes devolver el resultado si es necesario
+      })
+      .catch(error => {
+        console.error(error);
+        throw error; // Puedes manejar el error aquí o lanzarlo para que se maneje en el nivel superior
+      });
   }
 
-  getCharactersFindAll() {
-    return this.rest.getCharacterAll().subscribe(res => { console.log(res) })
+  getCharactersFindAll(): Promise<any> {
+    return this.rest.getCharacterAll().toPromise()
+      .then(res => {
+        console.log(res);
+        return res; // Puedes devolver el resultado si es necesario
+      })
+      .catch(error => {
+        console.error(error);
+        throw error; // Puedes manejar el error aquí o lanzarlo para que se maneje en el nivel superior
+      });
   }
 
 }

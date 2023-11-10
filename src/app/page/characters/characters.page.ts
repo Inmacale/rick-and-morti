@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { CharactersDataManagementService } from 'src/app/service/characters-data-management.service';
 
 @Component({
   selector: 'app-characters',
@@ -9,9 +10,11 @@ import { AlertController } from '@ionic/angular';
 export class CharactersPage implements OnInit {
   isFavorite: boolean = false;
 
-  constructor(private alertController: AlertController,) { }
+  constructor(private alertController: AlertController, private characterdatamanagement: CharactersDataManagementService) { }
 
   ngOnInit() {
+    this.characterdatamanagement.getCharactersFindId(1)
+    this.characterdatamanagement.getCharactersFindAll()
   }
 
 
