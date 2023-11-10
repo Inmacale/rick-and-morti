@@ -37,13 +37,13 @@
 
 
   <ion-list>
-    <ion-item-sliding *ngFor="let x of ['rick','morty', 'inma']">
+    <ion-item-sliding *ngFor="let character of characters">
       <ion-item [routerLink]="['/profile']">
         <ion-avatar slot="start">
           <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
         </ion-avatar>
         <ion-label>
-          {{x}}
+          {{character.name}}
         </ion-label>
       </ion-item>
       <ion-item-options side="end">

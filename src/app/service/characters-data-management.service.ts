@@ -7,7 +7,6 @@ import { lastValueFrom } from 'rxjs';
 })
 export class CharactersDataManagementService {
 
-  characters: any[] = []
 
   constructor(protected rest: CharactersRestService) {
 
@@ -15,8 +14,7 @@ export class CharactersDataManagementService {
 
   getCharactersFindId(id: number): Promise<any> {
     return lastValueFrom(this.rest.getCharacterId(id))
-      .then(res => {
-        console.log(res); this.characters = res.results;
+      .then((res: any) => {
         return res; // Puedes devolver el resultado si es necesario
       })
       .catch(error => {
@@ -35,6 +33,15 @@ export class CharactersDataManagementService {
         console.error(error);
         throw error; // Puedes manejar el error aquí o lanzarlo para que se maneje en el nivel superior
       });
+  }
+
+  async listCharacters() {
+    try {
+      const res = await this.getCharactersFindAll();
+      return res.results;
+    } catch (error) {
+      console.error(error); // Aquí puedes manejar el error
+    }
   }
 
 }

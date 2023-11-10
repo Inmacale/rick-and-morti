@@ -9,12 +9,12 @@ import { CharactersDataManagementService } from 'src/app/service/characters-data
 })
 export class CharactersPage implements OnInit {
   isFavorite: boolean = false;
+  characters: any[] | undefined;
 
   constructor(private alertController: AlertController, private characterdatamanagement: CharactersDataManagementService) { }
 
   ngOnInit() {
-    this.characterdatamanagement.getCharactersFindId(1)
-    this.characterdatamanagement.getCharactersFindAll()
+    this.chargeListCharacters();
   }
 
 
@@ -43,6 +43,11 @@ export class CharactersPage implements OnInit {
     } else {
       this.isFavorite = !this.isFavorite;
     }
+  }
+
+  async chargeListCharacters() {
+    const res = await this.characterdatamanagement.listCharacters();
+    this.characters = res;
   }
 
 
