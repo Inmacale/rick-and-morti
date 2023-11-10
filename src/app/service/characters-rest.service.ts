@@ -9,16 +9,20 @@ export class CharactersRestService extends AbstractService {
 
   constructor(protected httpClient: HttpClient) {
     super(httpClient);
-   }
-     // Implementamos el método abstracto que devuelve la URL base de la API
-  getBaseUrl(): string {
+  }
+  // Implementamos el método abstracto que devuelve la URL base de la API
+  public getBaseUrl(): string {
     // Retornamos la URL base de la API de usuarios
     return 'https://rickandmortyapi.com/api/character/';
   }
 
-  getCharacterId(id: number) {
+  public getCharacterId(id: number) {
     return this.getId(this.getBaseUrl(), id);
-    
+
+  }
+
+  public getCharacterAll() {
+    return this.getAll(this.getBaseUrl());
   }
 
 

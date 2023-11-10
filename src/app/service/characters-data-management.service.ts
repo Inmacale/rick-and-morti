@@ -6,11 +6,16 @@ import { CharactersRestService } from './characters-rest.service';
 })
 export class CharactersDataManagementService {
 
-  constructor(protected rest: CharactersRestService) { 
+  constructor(protected rest: CharactersRestService) {
 
   }
 
-  getCharactersId(id: number){
-      this.rest.getCharacterId(id).subscribe(res => {console.log(res)})
+  getCharactersFindId(id: number) {
+    return this.rest.getCharacterId(id).subscribe(res => { console.log(res) })
   }
+
+  getCharactersFindAll() {
+    return this.rest.getCharacterAll().subscribe(res => { console.log(res) })
+  }
+
 }

@@ -14,7 +14,9 @@ export class ProfilePage implements OnInit {
   constructor(private alertController: AlertController, private characterdatamanagement: CharactersDataManagementService) { }
 
   ngOnInit() {
-    this.characterdatamanagement.getCharactersId(1);
+    this.characterdatamanagement.getCharactersFindId(1)
+    this.characterdatamanagement.getCharactersFindAll();
+
   }
 
 
