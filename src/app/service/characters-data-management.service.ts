@@ -64,4 +64,8 @@ export class CharactersDataManagementService {
 
     console.log(this.favoriteList);
   }
+
+  getFavoriteList(): any[] {
+    return this.favoriteList;
+  }
 }

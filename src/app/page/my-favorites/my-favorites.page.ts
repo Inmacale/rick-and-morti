@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
+import { CharactersDataManagementService } from 'src/app/service/characters-data-management.service';
 
 
 @Component({
@@ -9,19 +10,19 @@ import { AlertController, NavController } from '@ionic/angular';
 })
 export class MyFavoritesPage implements OnInit {
 
-  constructor(private alertController: AlertController, private navCtrl: NavController) { }
+  constructor(private alertController: AlertController, private navCtrl: NavController, private characterdatamanagement: CharactersDataManagementService ) { }
 
   ngOnInit() {
   }
 
-  async deleteItem(event: any, x: any) {
+  async deleteItem(event: any, character: any) {
     console.log(event)
     const slidingItem = event.target.closest('ion-item-sliding');
     slidingItem.close();
 
     const alert = await this.alertController.create({
       header: 'Confirmar borrado',
-      message: `¿Estás seguro de que quieres borrar ${x}?`,
+      message: `¿Estás seguro de que quieres borrar ${character}?`,
       buttons: [
         {
           text: 'Cancelar',
@@ -29,8 +30,9 @@ export class MyFavoritesPage implements OnInit {
         }, {
           text: 'Borrar',
           handler: () => {
+            this.characterdatamanagement.deleteFavoriteList(character);
             // Aquí va la lógica para borrar el ítem
-            console.log('Ítem borrado:', x);
+            console.log('Ítem borrado:', character);
           }
         }
       ]
@@ -41,5 +43,9 @@ export class MyFavoritesPage implements OnInit {
 
   navigateToCharacters() {
     this.navCtrl.navigateForward('/characters');
+  }
+
+  getFavoriteList(): any[] {
+    return this.characterdatamanagement.getFavoriteList();
   }
 }
