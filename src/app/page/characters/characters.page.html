@@ -38,9 +38,9 @@
 
   <ion-list>
     <ion-item-sliding *ngFor="let character of characters">
-      <ion-item [routerLink]="['/profile']">
+      <ion-item [routerLink]="['/profile/'+ character.id]">
         <ion-avatar slot="start">
-          <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+          <img [src]="character.image" />
         </ion-avatar>
         <ion-label>
           {{character.name}}
@@ -53,4 +53,7 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

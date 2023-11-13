@@ -21,8 +21,8 @@ export class CharactersRestService extends AbstractService {
 
   }
 
-  public getCharacterAll() {
-    return this.getAll(this.getBaseUrl());
+  public getCharacterAll(path?: string) {
+    return this.getAll(path ? path : this.getBaseUrl());
   }
 
 

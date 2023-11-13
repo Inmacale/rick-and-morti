@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, InfiniteScrollCustomEvent } from '@ionic/angular';
 import { CharactersDataManagementService } from 'src/app/service/characters-data-management.service';
 
 @Component({
@@ -9,12 +9,13 @@ import { CharactersDataManagementService } from 'src/app/service/characters-data
 })
 export class CharactersPage implements OnInit {
   isFavorite: boolean = false;
-  characters: any[] | undefined;
+  characters: any[] = [];
+  nextPage: string = "";
 
   constructor(private alertController: AlertController, private characterdatamanagement: CharactersDataManagementService) { }
 
   ngOnInit() {
-    this.chargeListCharacters();
+    this.chargePageCharacters();
   }
 
 
@@ -45,11 +46,19 @@ export class CharactersPage implements OnInit {
     }
   }
 
-  async chargeListCharacters() {
-    const res = await this.characterdatamanagement.listCharacters();
-    this.characters = res;
+  async chargePageCharacters(path?: string) {
+    const pageCharacter = await this.characterdatamanagement.getCharactersFindAll(path);
+    const listCharacterPage = pageCharacter.results;
+    this.nextPage = pageCharacter.info.next;
+    this.characters = this.characters.concat(listCharacterPage);
   }
 
+  onIonInfinite(ev: any) {
+    this.chargePageCharacters(this.nextPage);
+    setTimeout(() => {
+      (ev as InfiniteScrollCustomEvent).target.complete();
+    }, 500);
+  }
 
 
 }

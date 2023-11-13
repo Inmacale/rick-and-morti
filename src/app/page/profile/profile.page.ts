@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { CharactersDataManagementService } from 'src/app/service/characters-data-management.service';
+
 
 
 @Component({
@@ -9,12 +12,17 @@ import { AlertController } from '@ionic/angular';
 })
 export class ProfilePage implements OnInit {
 
+  profileId: number | null = null;
   isFavorite: boolean = false;
+  character: any;
 
-  constructor(private alertController: AlertController) { }
+  constructor(private alertController: AlertController, private activatedRoute: ActivatedRoute, private characterdatamanagement: CharactersDataManagementService) { }
 
   ngOnInit() {
-    ;
+    this.profileId = parseInt(this.activatedRoute.snapshot.paramMap.get('id') || '', 10)
+    this.characterdatamanagement.getCharactersFindId(this.profileId).then(res => {
+      console.log(res), this.character = res;
+    })
 
   }
 

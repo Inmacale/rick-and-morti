@@ -23,9 +23,9 @@ export class CharactersDataManagementService {
       });
   }
 
-  getCharactersFindAll(): Promise<any> {
-    return lastValueFrom(this.rest.getCharacterAll())
-      .then(res => {
+  getCharactersFindAll(path?: string): Promise<any> {
+    return lastValueFrom(this.rest.getCharacterAll(path))
+      .then((res: any) => {
         console.log(res);
         return res; // Puedes devolver el resultado si es necesario
       })
@@ -35,13 +35,6 @@ export class CharactersDataManagementService {
       });
   }
 
-  async listCharacters() {
-    try {
-      const res = await this.getCharactersFindAll();
-      return res.results;
-    } catch (error) {
-      console.error(error); // Aquí puedes manejar el error
-    }
-  }
+
 
 }

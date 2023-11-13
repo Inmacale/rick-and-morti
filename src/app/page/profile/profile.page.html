@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button default-href="/characters"></ion-back-button>
     </ion-buttons>
-    <ion-title> Charater 1 </ion-title>
+    <ion-title> {{character?.name}} </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="toggleFavorite()">
         <ion-icon slot="icon-only" [name]="isFavorite ? 'star' : 'star-outline'"></ion-icon>
@@ -14,14 +14,16 @@
 
 <ion-content [fullscreen]="true">
   <ion-card>
-    <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+    <img alt="Silhouette of mountains" src={{character?.image}} />
     <ion-card-header>
-      <ion-card-title>Card Title</ion-card-title>
+      <ion-card-title>{{character?.name}} </ion-card-title>
 
     </ion-card-header>
 
     <ion-card-content>
-      Here's a small text description for the card content. Nothing more, nothing less.
+      <ion-item>Status: {{character?.status}}</ion-item>
+      <ion-item>Species: {{character?.species}}</ion-item>
+      <ion-item>Gender: {{character?.gender}}</ion-item>
     </ion-card-content>
   </ion-card>
 
