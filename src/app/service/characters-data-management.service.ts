@@ -40,7 +40,9 @@ export class CharactersDataManagementService {
 
 
   isFavorite(item: any):boolean{
-    if(this.favoriteList.indexOf(item)!==-1){
+    let itemFound = this.favoriteList.find(elem=> elem.id === item?.id);
+
+    if(itemFound){
       return true;
     }else {
       return false;
@@ -48,7 +50,10 @@ export class CharactersDataManagementService {
   }
 
   deleteFavoriteList(character: any){
-    const index = this.favoriteList.indexOf(character);
+
+    let itemFound = this.favoriteList.find(elem=> elem.id === character.id);
+
+    const index = this.favoriteList.indexOf(itemFound);
     if(index !== -1){
       this.favoriteList.splice(index,1);
     }
