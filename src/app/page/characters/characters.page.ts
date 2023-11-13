@@ -8,7 +8,7 @@ import { CharactersDataManagementService } from 'src/app/service/characters-data
   styleUrls: ['./characters.page.scss'],
 })
 export class CharactersPage implements OnInit {
-  isFavorite: boolean = false;
+  
   characters: any[] = [];
   nextPage: string = "";
 
@@ -19,8 +19,8 @@ export class CharactersPage implements OnInit {
   }
 
 
-  async toggleFavorite() {
-    if (this.isFavorite) {
+  async toggleFavorite(character: any) {
+    if (this.isFavorite(character)) {
       const alert = await this.alertController.create({
         header: 'Quitar favorito',
         message: `¿Estás seguro de que quieres quitar como favorito?`,
@@ -31,8 +31,7 @@ export class CharactersPage implements OnInit {
           }, {
             text: 'Eliminar',
             handler: () => {
-              this.isFavorite = !this.isFavorite;
-              // Aquí va la lógica para borrar el ítem
+              this.characterdatamanagement.deleteFavoriteList(character);
               console.log('Ítem borrado:');
             }
           }
@@ -42,7 +41,7 @@ export class CharactersPage implements OnInit {
       await alert.present();
 
     } else {
-      this.isFavorite = !this.isFavorite;
+      this.characterdatamanagement.addFavoriteList(character);
     }
   }
 
@@ -58,6 +57,10 @@ export class CharactersPage implements OnInit {
     setTimeout(() => {
       (ev as InfiniteScrollCustomEvent).target.complete();
     }, 500);
+  }
+
+  isFavorite(item:any):boolean {
+    return this.characterdatamanagement.isFavorite(item);
   }
 
 

@@ -7,6 +7,8 @@ import { lastValueFrom } from 'rxjs';
 })
 export class CharactersDataManagementService {
 
+  favoriteList: any[]= [];
+
 
   constructor(protected rest: CharactersRestService) {
 
@@ -37,4 +39,24 @@ export class CharactersDataManagementService {
 
 
 
+  isFavorite(item: any):boolean{
+    if(this.favoriteList.indexOf(item)!==-1){
+      return true;
+    }else {
+      return false;
+    }
+  }
+
+  deleteFavoriteList(character: any){
+    const index = this.favoriteList.indexOf(character);
+    if(index !== -1){
+      this.favoriteList.splice(index,1);
+    }
+    console.log(this.favoriteList);
+  }
+  addFavoriteList(character: any){
+    this.favoriteList.push(character);
+
+    console.log(this.favoriteList);
+  }
 }

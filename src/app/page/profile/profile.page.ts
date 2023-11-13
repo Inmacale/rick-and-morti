@@ -12,23 +12,19 @@ import { CharactersDataManagementService } from 'src/app/service/characters-data
 })
 export class ProfilePage implements OnInit {
 
-  profileId: number | null = null;
-  isFavorite: boolean = false;
+  profileId: number | undefined;
   character: any;
 
   constructor(private alertController: AlertController, private activatedRoute: ActivatedRoute, private characterdatamanagement: CharactersDataManagementService) { }
 
   ngOnInit() {
-    this.profileId = parseInt(this.activatedRoute.snapshot.paramMap.get('id') || '', 10)
-    this.characterdatamanagement.getCharactersFindId(this.profileId).then(res => {
-      console.log(res), this.character = res;
-    })
-
+    this.profileId = parseInt(this.activatedRoute.snapshot.paramMap.get('id') || '', 10);
+    this.getCharacterDetail();
   }
 
 
-  async toggleFavorite() {
-    if (this.isFavorite) {
+  async toggleFavorite(character: any) {
+    if (this.isFavorite(character)) {
       const alert = await this.alertController.create({
         header: 'Quitar favorito',
         message: `¿Estás seguro de que quieres quitar como favorito?`,
@@ -39,8 +35,7 @@ export class ProfilePage implements OnInit {
           }, {
             text: 'Eliminar',
             handler: () => {
-              this.isFavorite = !this.isFavorite;
-              // Aquí va la lógica para borrar el ítem
+              this.characterdatamanagement.deleteFavoriteList(character);
               console.log('Ítem borrado:');
             }
           }
@@ -50,11 +45,20 @@ export class ProfilePage implements OnInit {
       await alert.present();
 
     } else {
-      this.isFavorite = !this.isFavorite;
+      this.characterdatamanagement.addFavoriteList(character);
     }
-
   }
 
-
+  async getCharacterDetail (){
+    if(this.profileId){
+      this.characterdatamanagement.getCharactersFindId(this.profileId).then(res => {
+        console.log(res);
+        this.character = res;
+      });
+    }
+  }
+  isFavorite(item:any):boolean {
+    return this.characterdatamanagement.isFavorite(item);
+  }
 
 }
