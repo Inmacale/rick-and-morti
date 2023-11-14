@@ -8,9 +8,9 @@
     <ion-searchbar></ion-searchbar>
     <ion-list>
       <ion-item-sliding *ngFor="let character of getFavoriteList()">
-        <ion-item [routerLink]="['/profile']">
+        <ion-item [routerLink]="['/profile/'+ character.id]">
           <ion-avatar slot="start">
-            <img src={{character.image}}/>
+            <img src={{character.image}} />
           </ion-avatar>
           <ion-label>
             {{character.name}}
