@@ -8,14 +8,16 @@ import { CharactersDataManagementService } from 'src/app/service/characters-data
   styleUrls: ['./characters.page.scss'],
 })
 export class CharactersPage implements OnInit {
-  
+
   characters: any[] = [];
   nextPage: string = "";
+  results: any | undefined;
 
   constructor(private alertController: AlertController, private characterdatamanagement: CharactersDataManagementService) { }
 
   ngOnInit() {
     this.chargePageCharacters();
+    this.results = this.characters;
   }
 
 
@@ -52,15 +54,21 @@ export class CharactersPage implements OnInit {
     this.characters = this.characters.concat(listCharacterPage);
   }
 
-  onIonInfinite(ev: any) {
+  public onIonInfinite(ev: any) {
     this.chargePageCharacters(this.nextPage);
     setTimeout(() => {
       (ev as InfiniteScrollCustomEvent).target.complete();
     }, 500);
   }
 
-  isFavorite(item:any):boolean {
+  public isFavorite(item: any): boolean {
     return this.characterdatamanagement.isFavorite(item);
+  }
+
+  public handleInput(event: any) {
+    const query = event.target.value.toLowerCase();
+    this.results = this.characters.filter((character) => character.name.toLowerCase().indexOf(query) > -1);
+
   }
 
 

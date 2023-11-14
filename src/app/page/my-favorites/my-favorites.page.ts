@@ -10,9 +10,12 @@ import { CharactersDataManagementService } from 'src/app/service/characters-data
 })
 export class MyFavoritesPage implements OnInit {
 
-  constructor(private alertController: AlertController, private navCtrl: NavController, private characterdatamanagement: CharactersDataManagementService ) { }
+  favorites: any[] | undefined;
+
+  constructor(private alertController: AlertController, private navCtrl: NavController, private characterdatamanagement: CharactersDataManagementService) { }
 
   ngOnInit() {
+    this.favorites = this.getFavoriteList();
   }
 
   async deleteItem(event: any, character: any) {
@@ -41,11 +44,19 @@ export class MyFavoritesPage implements OnInit {
     await alert.present();
   }
 
-  navigateToCharacters() {
+  public navigateToCharacters() {
     this.navCtrl.navigateForward('/characters');
   }
 
-  getFavoriteList(): any[] {
+  public getFavoriteList(): any[] {
     return this.characterdatamanagement.getFavoriteList();
   }
+
+  public handleInput(event: any) {
+    const query = event.target.value.toLowerCase();
+    this.favorites = this.getFavoriteList().filter((character) => character.name.toLowerCase().indexOf(query) > -1);
+
+  }
+
+
 }

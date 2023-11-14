@@ -5,19 +5,19 @@
     </ion-toolbar>
   </ion-header>
   <ion-content [fullscreen]="true">
-    <ion-searchbar></ion-searchbar>
+    <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)"></ion-searchbar>
     <ion-list>
-      <ion-item-sliding *ngFor="let character of getFavoriteList()">
-        <ion-item [routerLink]="['/profile/'+ character.id]">
+      <ion-item-sliding *ngFor="let favorite of favorites">
+        <ion-item [routerLink]="['/profile/'+ favorite.id]">
           <ion-avatar slot="start">
-            <img src={{character.image}} />
+            <img src={{favorite.image}} />
           </ion-avatar>
           <ion-label>
-            {{character.name}}
+            {{favorite.name}}
           </ion-label>
         </ion-item>
         <ion-item-options side="end">
-          <ion-item-option color="danger" (click)="deleteItem($event, character)">
+          <ion-item-option color="danger" (click)="deleteItem($event, favorite)">
             <ion-icon slot="icon-only" name="trash"></ion-icon>
           </ion-item-option>
         </ion-item-options>
