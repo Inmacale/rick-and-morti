@@ -7,8 +7,7 @@ import { lastValueFrom } from 'rxjs';
 })
 export class CharactersDataManagementService {
 
-  favoriteList: any[]= [];
-
+  favoriteList: any[] = [];
 
   constructor(protected rest: CharactersRestService) {
 
@@ -25,8 +24,8 @@ export class CharactersDataManagementService {
       });
   }
 
-  getCharactersFindAll(path?: string): Promise<any> {
-    return lastValueFrom(this.rest.getCharacterAll(path))
+  getCharactersFindAll(params?: any): Promise<any> {
+    return lastValueFrom(this.rest.getCharacterAll(params))
       .then((res: any) => {
         console.log(res);
         return res; // Puedes devolver el resultado si es necesario
@@ -39,27 +38,26 @@ export class CharactersDataManagementService {
 
 
 
-  isFavorite(item: any):boolean{
-    let itemFound = this.favoriteList.find(elem=> elem.id === item?.id);
-
-    if(itemFound){
+  isFavorite(item: any): boolean {
+    let itemFound = this.favoriteList.find(elem => elem.id === item?.id);
+    if (itemFound) {
       return true;
-    }else {
+    } else {
       return false;
     }
   }
 
-  deleteFavoriteList(character: any){
+  deleteFavoriteList(character: any) {
 
-    let itemFound = this.favoriteList.find(elem=> elem.id === character.id);
+    let itemFound = this.favoriteList.find(elem => elem.id === character.id);
 
     const index = this.favoriteList.indexOf(itemFound);
-    if(index !== -1){
-      this.favoriteList.splice(index,1);
+    if (index !== -1) {
+      this.favoriteList.splice(index, 1);
     }
     console.log(this.favoriteList);
   }
-  addFavoriteList(character: any){
+  addFavoriteList(character: any) {
     this.favoriteList.push(character);
 
     console.log(this.favoriteList);

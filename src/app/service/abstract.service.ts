@@ -11,15 +11,8 @@ export abstract class AbstractService {
 
   constructor(protected http: HttpClient) { }
 
-  abstract getBaseUrl(): string;
-
-
-  protected getAll<T>(path: string): Observable<T> {
-    return this.http.get<T>(path);
-  }
-
-  protected getId<T>(path: string, id: number): Observable<T> {
-    return this.http.get<T>(path + id);
+  protected get<T>(path: string, params?: any): Observable<T> {
+    return this.http.get<T>(path, { params });
   }
 
   protected post<T>(path: string, body: any): Observable<T> {

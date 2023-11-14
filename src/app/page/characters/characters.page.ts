@@ -11,7 +11,8 @@ import { CharactersDataManagementService } from 'src/app/service/characters-data
 export class CharactersPage implements OnInit {
 
   characters: CharacterDto[] = [];
-  nextPage: string = "";
+  nextPage: number = 1;
+  maxNumberPages: number = 1;
   searchText: string = '';
 
   constructor(private alertController: AlertController, private characterdatamanagement: CharactersDataManagementService) { }
@@ -47,14 +48,17 @@ export class CharactersPage implements OnInit {
     }
   }
 
-  async chargePageCharacters(path?: string) {
-    const pageCharacter = await this.characterdatamanagement.getCharactersFindAll(path);
-    this.nextPage = pageCharacter.info.next;
+  async chargePageCharacters(params?: any) {
+    const pageCharacter = await this.characterdatamanagement.getCharactersFindAll(params);
+    this.maxNumberPages = pageCharacter.info.pages;
     this.characters = this.characters.concat(pageCharacter.results);
   }
 
   public onIonInfinite(ev: any) {
-    this.chargePageCharacters(this.nextPage);
+    if (this.maxNumberPages > this.nextPage + 1) {
+      this.nextPage++;
+      this.chargePageCharacters({ page: this.nextPage });
+    }
     setTimeout(() => {
       (ev as InfiniteScrollCustomEvent).target.complete();
     }, 500);
