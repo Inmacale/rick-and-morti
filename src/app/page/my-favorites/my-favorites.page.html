@@ -5,9 +5,9 @@
     </ion-toolbar>
   </ion-header>
   <ion-content [fullscreen]="true">
-    <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)"></ion-searchbar>
+    <ion-searchbar [debounce]="1000" [(ngModel)]="searchText" placeholder="Name Charater"></ion-searchbar>
     <ion-list>
-      <ion-item-sliding *ngFor="let favorite of favorites">
+      <ion-item-sliding *ngFor="let favorite of getFavoriteList()">
         <ion-item [routerLink]="['/profile/'+ favorite.id]">
           <ion-avatar slot="start">
             <img src={{favorite.image}} />

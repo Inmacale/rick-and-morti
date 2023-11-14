@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
+import { CharacterDto } from 'src/app/model/character';
 import { CharactersDataManagementService } from 'src/app/service/characters-data-management.service';
 
 
@@ -10,15 +11,16 @@ import { CharactersDataManagementService } from 'src/app/service/characters-data
 })
 export class MyFavoritesPage implements OnInit {
 
-  favorites: any[] | undefined;
+
+  searchText: string = '';
 
   constructor(private alertController: AlertController, private navCtrl: NavController, private characterdatamanagement: CharactersDataManagementService) { }
 
   ngOnInit() {
-    this.favorites = this.getFavoriteList();
+    this.getFavoriteList();
   }
 
-  async deleteItem(event: any, character: any) {
+  async deleteItem(event: any, character: CharacterDto) {
     console.log(event)
     const slidingItem = event.target.closest('ion-item-sliding');
     slidingItem.close();
@@ -48,15 +50,11 @@ export class MyFavoritesPage implements OnInit {
     this.navCtrl.navigateForward('/characters');
   }
 
-  public getFavoriteList(): any[] {
-    return this.characterdatamanagement.getFavoriteList();
+  public getFavoriteList(): CharacterDto[] {
+    return this.characterdatamanagement.getFavoriteList().filter((character) => character.name.toLowerCase().includes(this.searchText.toLocaleLowerCase()));
   }
 
-  public handleInput(event: any) {
-    const query = event.target.value.toLowerCase();
-    this.favorites = this.getFavoriteList().filter((character) => character.name.toLowerCase().indexOf(query) > -1);
 
-  }
 
 
 }
