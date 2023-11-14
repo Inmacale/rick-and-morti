@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, InfiniteScrollCustomEvent } from '@ionic/angular';
+import { CharacterDto } from 'src/app/model/character';
 import { CharactersDataManagementService } from 'src/app/service/characters-data-management.service';
 
 @Component({
@@ -9,19 +10,18 @@ import { CharactersDataManagementService } from 'src/app/service/characters-data
 })
 export class CharactersPage implements OnInit {
 
-  characters: any[] = [];
+  characters: CharacterDto[] = [];
   nextPage: string = "";
-  results: any | undefined;
+  searchText: string = '';
 
   constructor(private alertController: AlertController, private characterdatamanagement: CharactersDataManagementService) { }
 
   ngOnInit() {
     this.chargePageCharacters();
-    this.results = this.characters;
   }
 
 
-  async toggleFavorite(character: any) {
+  async toggleFavorite(character: CharacterDto) {
     if (this.isFavorite(character)) {
       const alert = await this.alertController.create({
         header: 'Quitar favorito',
@@ -49,9 +49,8 @@ export class CharactersPage implements OnInit {
 
   async chargePageCharacters(path?: string) {
     const pageCharacter = await this.characterdatamanagement.getCharactersFindAll(path);
-    const listCharacterPage = pageCharacter.results;
     this.nextPage = pageCharacter.info.next;
-    this.characters = this.characters.concat(listCharacterPage);
+    this.characters = this.characters.concat(pageCharacter.results);
   }
 
   public onIonInfinite(ev: any) {
@@ -65,10 +64,8 @@ export class CharactersPage implements OnInit {
     return this.characterdatamanagement.isFavorite(item);
   }
 
-  public handleInput(event: any) {
-    const query = event.target.value.toLowerCase();
-    this.results = this.characters.filter((character) => character.name.toLowerCase().indexOf(query) > -1);
-
+  public getCharactersList(): CharacterDto[] {
+    return this.characters.filter((character) => character.name.toLowerCase().includes(this.searchText.toLowerCase()))
   }
 
 

@@ -3,7 +3,7 @@
     <ion-title>characters</ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar [debounce]="1000" (ionInput)="handleInput($event)" placeholder="Name Charater"></ion-searchbar>
+    <ion-searchbar [debounce]="1000" [(ngModel)]="searchText" placeholder="Name Charater"></ion-searchbar>
     <ion-buttons slot="end">
       <ion-button id="popover-button">
         <ion-icon slot="icon-only" name="funnel"></ion-icon>
@@ -37,7 +37,7 @@
 
 
   <ion-list>
-    <ion-item-sliding *ngFor="let result of results">
+    <ion-item-sliding *ngFor="let result of getCharactersList()">
       <ion-item [routerLink]="['/profile/'+ result.id]">
         <ion-avatar slot="start">
           <img [src]="result.image" />
