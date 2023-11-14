@@ -6,10 +6,12 @@ import { lastValueFrom } from 'rxjs';
   providedIn: 'root'
 })
 export class CharactersDataManagementService {
+  private localStorageKey = 'favoriteList';
 
   favoriteList: any[] = [];
 
   constructor(protected rest: CharactersRestService) {
+    this.loadFavoriteListFromLocalStorage();
 
   }
 
@@ -36,8 +38,6 @@ export class CharactersDataManagementService {
       });
   }
 
-
-
   isFavorite(item: any): boolean {
     let itemFound = this.favoriteList.find(elem => elem.id === item?.id);
     if (itemFound) {
@@ -46,6 +46,17 @@ export class CharactersDataManagementService {
       return false;
     }
   }
+  private loadFavoriteListFromLocalStorage() {
+    const storedData = localStorage.getItem(this.localStorageKey);
+    if (storedData) {
+      this.favoriteList = JSON.parse(storedData);
+    }
+  }
+
+  private saveFavoriteListToLocalStorage() {
+    localStorage.setItem(this.localStorageKey, JSON.stringify(this.favoriteList));
+  }
+
 
   deleteFavoriteList(character: any) {
 
@@ -55,10 +66,15 @@ export class CharactersDataManagementService {
     if (index !== -1) {
       this.favoriteList.splice(index, 1);
     }
+
+    this.saveFavoriteListToLocalStorage();
     console.log(this.favoriteList);
   }
+
   addFavoriteList(character: any) {
     this.favoriteList.push(character);
+
+    this.saveFavoriteListToLocalStorage();
 
     console.log(this.favoriteList);
   }
