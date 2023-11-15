@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CharactersDataManagementService } from './characters-data-management.service';
+import { DataManagementService } from './data-management.service';
 
 describe('CharactersDataManagementService', () => {
-  let service: CharactersDataManagementService;
+  let service: DataManagementService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CharactersDataManagementService);
+    service = TestBed.inject(DataManagementService);
   });
 
   it('should be created', () => {

@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, InfiniteScrollCustomEvent } from '@ionic/angular';
-import { CharacterDto } from 'src/app/model/character';
-import { CharactersDataManagementService } from 'src/app/service/characters-data-management.service';
+import { DataManagementService } from 'src/app/service/data-management.service';
 
 @Component({
-    selector: 'app-characters',
     template: '',
 })
-export class ListsAbstractPage implements OnInit {
+export abstract class ListsAbstractPage  {
 
 
     nextPage: number = 1;
@@ -19,11 +17,10 @@ export class ListsAbstractPage implements OnInit {
     sortByOptions: { key: string, active?: boolean }[] = [];
 
 
-    constructor(private alertController: AlertController, private characterdatamanagement: CharactersDataManagementService) { }
+    constructor(protected alertController: AlertController, protected datamanagement: DataManagementService) { }
 
-    ngOnInit() {
-        this.chargePageItems();
-    }
+
+    abstract getPathResource(): string;
 
 
     async toggleFavorite(item: any) {
@@ -38,7 +35,7 @@ export class ListsAbstractPage implements OnInit {
                     }, {
                         text: 'Eliminar',
                         handler: () => {
-                            this.characterdatamanagement.deleteFavoriteList(item);
+                            this.datamanagement.deleteFavoriteList(item);
                             console.log('Ítem borrado:');
                         }
                     }
@@ -48,14 +45,14 @@ export class ListsAbstractPage implements OnInit {
             await alert.present();
 
         } else {
-            this.characterdatamanagement.addFavoriteList(item);
+            this.datamanagement.addFavoriteList(item);
         }
     }
 
     async chargePageItems(params?: any) {
-        const pageCharacter = await this.characterdatamanagement.getCharactersFindAll(params);
-        this.maxNumberPages = pageCharacter.info.pages;
-        this.items = this.items.concat(pageCharacter.results);
+        const page = await this.datamanagement.getFindAll(this.getPathResource(), params);
+        this.maxNumberPages = page.info.pages;
+        this.items = this.items.concat(page.results);
     }
 
     public onIonInfinite(ev: InfiniteScrollCustomEvent) {
@@ -69,7 +66,7 @@ export class ListsAbstractPage implements OnInit {
     }
 
     public isFavorite(item: any): boolean {
-        return this.characterdatamanagement.isFavorite(item);
+        return this.datamanagement.isFavorite(item);
     }
 
     public getCharactersList(): any[] {

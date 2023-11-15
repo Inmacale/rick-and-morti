@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
 import { CharacterDto } from 'src/app/model/character';
-import { CharactersDataManagementService } from 'src/app/service/characters-data-management.service';
+import { DataManagementService } from 'src/app/service/data-management.service';
 
 
 @Component({
@@ -14,7 +14,7 @@ export class MyFavoritesPage implements OnInit {
 
   searchText: string = '';
 
-  constructor(private alertController: AlertController, private navCtrl: NavController, private characterdatamanagement: CharactersDataManagementService) { }
+  constructor(private alertController: AlertController, private navCtrl: NavController, private characterdatamanagement: DataManagementService) { }
 
   ngOnInit() {
     this.getFavoriteList();

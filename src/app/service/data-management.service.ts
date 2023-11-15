@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { CharactersRestService } from './characters-rest.service';
+import { CharactersRestService } from './rest.service';
 import { lastValueFrom } from 'rxjs';
 import { PersistenceService } from './persistence.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CharactersDataManagementService {
+export class DataManagementService {
 
 
   favoriteList: any[] = [];
@@ -16,8 +16,8 @@ export class CharactersDataManagementService {
     this.favoriteList = this.persistenceService.loadFavoriteListFromLocalStorage();
   }
 
-  getCharactersFindId(id: number): Promise<any> {
-    return lastValueFrom(this.rest.getCharacterId(id))
+  getFindId(path: string, id: number): Promise<any> {
+    return lastValueFrom(this.rest.getId(path, id))
       .then((res: any) => {
         return res; // Puedes devolver el resultado si es necesario
       })
@@ -27,8 +27,9 @@ export class CharactersDataManagementService {
       });
   }
 
-  getCharactersFindAll(params?: any): Promise<any> {
-    return lastValueFrom(this.rest.getCharacterAll(params))
+  getFindAll(path: string, params?: any): Promise<any> {
+    console.log (path);
+    return lastValueFrom(this.rest.getAll(path, params))
       .then((res: any) => {
         console.log(res);
         return res; // Puedes devolver el resultado si es necesario
@@ -49,9 +50,9 @@ export class CharactersDataManagementService {
   }
 
 
-  deleteFavoriteList(character: any) {
+  deleteFavoriteList(item: any) {
 
-    let itemFound = this.favoriteList.find(elem => elem.id === character.id);
+    let itemFound = this.favoriteList.find(elem => elem.id === item.id);
 
     const index = this.favoriteList.indexOf(itemFound);
     if (index !== -1) {
@@ -62,8 +63,8 @@ export class CharactersDataManagementService {
     console.log(this.favoriteList);
   }
 
-  addFavoriteList(character: any) {
-    this.favoriteList.push(character);
+  addFavoriteList(item: any) {
+    this.favoriteList.push(item);
 
     this.persistenceService.saveFavoriteListToLocalStorage(this.favoriteList);
     console.log(this.favoriteList);

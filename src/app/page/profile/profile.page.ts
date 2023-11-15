@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { CharactersDataManagementService } from 'src/app/service/characters-data-management.service';
+import { DataManagementService } from 'src/app/service/data-management.service';
 
 
 
@@ -14,8 +14,9 @@ export class ProfilePage implements OnInit {
 
   profileId: number | undefined;
   character: any;
+  urlCharacter: string = "/'character'/";
 
-  constructor(private alertController: AlertController, private activatedRoute: ActivatedRoute, private characterdatamanagement: CharactersDataManagementService) { }
+  constructor(private alertController: AlertController, private activatedRoute: ActivatedRoute, private characterdatamanagement: DataManagementService) { }
 
   ngOnInit() {
     this.profileId = parseInt(this.activatedRoute.snapshot.paramMap.get('id') || '', 10);
@@ -51,7 +52,7 @@ export class ProfilePage implements OnInit {
 
   async getCharacterDetail (){
     if(this.profileId){
-      this.characterdatamanagement.getCharactersFindId(this.profileId).then(res => {
+      this.characterdatamanagement.getFindId(this.urlCharacter,this.profileId).then(res => {
         console.log(res);
         this.character = res;
       });

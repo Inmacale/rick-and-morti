@@ -14,12 +14,12 @@ export class CharactersRestService extends AbstractService {
     super(httpClient);
   }
 
-  public getCharacterId(id: number) {
-    return this.get(this.apiUrl + 'character/' + id);
+  public getId(path: string, id: number) {
+    return this.get(this.apiUrl + path + id);
   }
 
-  public getCharacterAll(params?: any) {
-    return this.get(this.apiUrl + 'character/', params);
+  public getAll(path: string, params?: any) {
+    return this.get(this.apiUrl + path, params);
   }
 
 
