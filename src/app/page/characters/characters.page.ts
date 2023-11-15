@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, InfiniteScrollCustomEvent } from '@ionic/angular';
-import { CharacterDto } from 'src/app/model/character';
 import { DataManagementService } from 'src/app/service/data-management.service';
 import { ListsAbstractPage } from '../abstract/lists.abstract';
 
@@ -18,6 +17,10 @@ export class CharactersPage extends ListsAbstractPage implements OnInit {
 
   public ngOnInit() {
     this.chargePageItems();
+    this.initializeSorter();
+  }
+  initializeSorter() {
+    this.sortByOptions = [ { key: 'status' }, { key: 'species' }, { key: 'gender' }];
   }
 
   override getPathResource(): string {
