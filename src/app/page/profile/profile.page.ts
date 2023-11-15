@@ -14,7 +14,7 @@ export class ProfilePage implements OnInit {
 
   profileId: number | undefined;
   character: any;
-  urlCharacter: string = "/'character'/";
+  urlCharacter: string = 'character/';
 
   constructor(private alertController: AlertController, private activatedRoute: ActivatedRoute, private characterdatamanagement: DataManagementService) { }
 
