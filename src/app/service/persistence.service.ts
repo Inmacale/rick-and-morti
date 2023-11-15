@@ -8,7 +8,7 @@ export class PersistenceService {
   private localStorageKey = 'favoriteList';
   constructor() { }
 
-  public loadFavoriteListFromLocalStorage(): any[] {
+  public loadFavoriteListFromLocalStorage(): any {
     const storedData = localStorage.getItem(this.localStorageKey);
     if (storedData) {
       return JSON.parse(storedData);
