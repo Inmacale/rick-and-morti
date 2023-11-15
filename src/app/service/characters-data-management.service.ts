@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { CharactersRestService } from './characters-rest.service';
 import { lastValueFrom } from 'rxjs';
+import { PersistenceService } from './persistence.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CharactersDataManagementService {
-  private localStorageKey = 'favoriteList';
+
 
   favoriteList: any[] = [];
 
-  constructor(protected rest: CharactersRestService) {
-    this.loadFavoriteListFromLocalStorage();
+  constructor(protected rest: CharactersRestService, private persistenceService: PersistenceService) {
 
+    this.favoriteList = this.persistenceService.loadFavoriteListFromLocalStorage();
   }
 
   getCharactersFindId(id: number): Promise<any> {
@@ -46,16 +47,6 @@ export class CharactersDataManagementService {
       return false;
     }
   }
-  private loadFavoriteListFromLocalStorage() {
-    const storedData = localStorage.getItem(this.localStorageKey);
-    if (storedData) {
-      this.favoriteList = JSON.parse(storedData);
-    }
-  }
-
-  private saveFavoriteListToLocalStorage() {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.favoriteList));
-  }
 
 
   deleteFavoriteList(character: any) {
@@ -66,16 +57,15 @@ export class CharactersDataManagementService {
     if (index !== -1) {
       this.favoriteList.splice(index, 1);
     }
+    this.persistenceService.saveFavoriteListToLocalStorage(this.favoriteList);
 
-    this.saveFavoriteListToLocalStorage();
     console.log(this.favoriteList);
   }
 
   addFavoriteList(character: any) {
     this.favoriteList.push(character);
 
-    this.saveFavoriteListToLocalStorage();
-
+    this.persistenceService.saveFavoriteListToLocalStorage(this.favoriteList);
     console.log(this.favoriteList);
   }
 
