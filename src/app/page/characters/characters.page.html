@@ -15,14 +15,8 @@
               <ion-item>
                 Ordenar por
               </ion-item>
-              <ion-item>
-                <ion-toggle (ionChange)="toggleOrder('status')" checked="false">status</ion-toggle>
-              </ion-item>
-              <ion-item>
-                <ion-toggle (ionChange)="toggleOrder('species')" checked="false">species</ion-toggle>
-              </ion-item>
-              <ion-item>
-                <ion-toggle (ionChange)="toggleOrder('gender')" checked="false">gender</ion-toggle>
+              <ion-item *ngFor="let option of sortByOptions">
+                <ion-toggle (ionChange)="toggleOrder(option)" [checked]="option.active">{{option.key}}</ion-toggle>
               </ion-item>
             </ion-list>
           </ion-content>

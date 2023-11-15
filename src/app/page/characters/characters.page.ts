@@ -16,6 +16,10 @@ export class CharactersPage implements OnInit {
   searchText: string = '';
   activeToggles: string[] = [];
 
+  sortByOptions: { key: string, active?: boolean }[] = [
+    { key: 'status' }, { key: 'species' }, { key: 'gender' }
+  ];
+
 
   constructor(private alertController: AlertController, private characterdatamanagement: CharactersDataManagementService) { }
 
@@ -71,45 +75,17 @@ export class CharactersPage implements OnInit {
   }
 
   public getCharactersList(): CharacterDto[] {
-    let filteredList = this.characters.filter((character) =>
+    const sortByKey = this.sortByOptions.find(e => e.active === true);
+
+    return this.characters.filter((character) =>
       character.name.toLowerCase().includes(this.searchText.toLowerCase())
-    );
-
-    if (this.activeToggles.length > 0) {
-      filteredList = filteredList.sort((a, b) => {
-        for (const toggle of this.activeToggles) {
-          const propA = a[toggle];
-          const propB = b[toggle];
-
-          if (typeof propA === 'string' && typeof propB === 'string') {
-            const comparison = propA.localeCompare(propB);
-            if (comparison !== 0) {
-              return comparison;
-            }
-          }
-
-          if (typeof propA === 'number' && typeof propB === 'number') {
-            const comparison = propA - propB;
-            if (comparison !== 0) {
-              return comparison;
-            }
-          }
-        }
-        return a.name.localeCompare(b.name);
-      });
-    } else {
-      filteredList = filteredList.sort((a, b) => a.name.localeCompare(b.name));
-    }
-
-    return filteredList;
+    ).sort((a, b) => {
+      return sortByKey ? (a[sortByKey.key] as string).localeCompare((b[sortByKey.key] as string)) : 0;
+    });
   }
-  public toggleOrder(toggle: string) {
-    const index = this.activeToggles.indexOf(toggle);
-    if (index === -1) {
-      this.activeToggles.push(toggle);
-    } else {
-      this.activeToggles.splice(index, 1);
-    }
+
+  public toggleOrder(toggle: { key: string, active?: boolean }): void {
+    this.sortByOptions.forEach((e) => e.active = e.key === toggle.key ? !toggle.active : false);
   }
 
 
