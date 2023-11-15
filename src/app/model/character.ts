@@ -6,4 +6,5 @@ export interface CharacterDto {
     type: string;
     gender: string;
     image: string;
+    [key: string]: string | number;
 }
