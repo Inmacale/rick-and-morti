@@ -1,14 +1,14 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Episodes</ion-title>
+    <ion-title>Location</ion-title>
   </ion-toolbar>
   <ion-toolbar>
     <ion-searchbar [debounce]="1000" [(ngModel)]="searchText" placeholder="Name Episode"></ion-searchbar>
     <ion-buttons slot="end">
-      <ion-button id="popover-button1">
+      <ion-button id="popover-button2">
         <ion-icon slot="icon-only" name="funnel"></ion-icon>
       </ion-button>
-      <ion-popover trigger="popover-button1">
+      <ion-popover trigger="popover-button2">
         <ng-template>
           <ion-content>
             <ion-list>
@@ -35,7 +35,7 @@
       <ion-item>
         <ion-label>
           <h4> {{result.name}}</h4>
-
+          <p>Type: {{result.type}}</p>
         </ion-label>
       </ion-item>
       <ion-item-options side="end">

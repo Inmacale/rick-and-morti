@@ -32,6 +32,10 @@ const routes: Routes = [
         path: 'my-favorite-characters',
         loadChildren: () => import('./page/my-favorite-characters/my-favorite-characters.module').then(m => m.MyFavoriteCharactersPageModule)
       },
+      {
+        path: 'location',
+        loadChildren: () => import('./page/location/location.module').then(m => m.LocationPageModule)
+      },
 
     ]
   },
@@ -39,6 +43,8 @@ const routes: Routes = [
     path: 'profile/:id',
     loadChildren: () => import('./page/profile/profile.module').then(m => m.ProfilePageModule)
   },
+
+
 
 
 
