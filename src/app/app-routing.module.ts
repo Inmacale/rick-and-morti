@@ -42,7 +42,11 @@ const routes: Routes = [
   {
     path: 'profile/:id',
     loadChildren: () => import('./page/profile/profile.module').then(m => m.ProfilePageModule)
+  },  {
+    path: 'my-favorite-episodes',
+    loadChildren: () => import('./page/my-favorite-episodes/my-favorite-episodes.module').then( m => m.MyFavoriteEpisodesPageModule)
   },
+
 
 
 

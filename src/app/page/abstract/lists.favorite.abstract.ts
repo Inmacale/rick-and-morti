@@ -7,7 +7,7 @@ import { DataManagementService } from 'src/app/service/data-management.service';
     template: '',
 
 })
-export abstract class MyFavoriteCharactersPage {
+export abstract class ListsFavoriteAbstractPage {
 
     searchText: string = '';
 
