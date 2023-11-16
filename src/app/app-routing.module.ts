@@ -26,8 +26,12 @@ const routes: Routes = [
       },
       {
         path: 'episodes',
-        loadChildren: () => import('./page/episode/episode.module').then( m => m.EpisodePageModule)
-      }
+        loadChildren: () => import('./page/episode/episode.module').then(m => m.EpisodePageModule)
+      },
+      {
+        path: 'my-favorite-characters',
+        loadChildren: () => import('./page/my-favorite-characters/my-favorite-characters.module').then(m => m.MyFavoriteCharactersPageModule)
+      },
 
     ]
   },
@@ -35,6 +39,8 @@ const routes: Routes = [
     path: 'profile/:id',
     loadChildren: () => import('./page/profile/profile.module').then(m => m.ProfilePageModule)
   },
+
+
 
 
 ];
