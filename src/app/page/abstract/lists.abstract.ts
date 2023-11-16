@@ -5,7 +5,7 @@ import { DataManagementService } from 'src/app/service/data-management.service';
 @Component({
     template: '',
 })
-export abstract class ListsAbstractPage  {
+export abstract class ListsAbstractPage {
 
 
     nextPage: number = 1;
@@ -69,7 +69,7 @@ export abstract class ListsAbstractPage  {
         return this.datamanagement.isFavorite(item);
     }
 
-    public getCharactersList(): any[] {
+    public getList(): any[] {
         const sortByKey = this.sortByOptions.find(e => e.active === true);
 
         return this.items.filter((item) =>

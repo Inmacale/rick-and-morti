@@ -31,7 +31,7 @@
 
 
   <ion-list>
-    <ion-item-sliding *ngFor="let result of getCharactersList()">
+    <ion-item-sliding *ngFor="let result of getList()">
       <ion-item [routerLink]="['/profile/'+ result.id]">
         <ion-avatar slot="start">
           <img [src]="result.image" />
