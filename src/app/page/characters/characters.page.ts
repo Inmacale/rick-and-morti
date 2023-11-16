@@ -11,16 +11,16 @@ import { ListsAbstractPage } from '../abstract/lists.abstract';
 export class CharactersPage extends ListsAbstractPage implements OnInit {
 
 
-  constructor(protected alertControllerCharacter: AlertController, protected dataManagementCharacter: DataManagementService) { 
-    super(alertControllerCharacter,dataManagementCharacter);
+  constructor(protected alertControllerCharacter: AlertController, protected dataManagementCharacter: DataManagementService) {
+    super(alertControllerCharacter, dataManagementCharacter);
   }
 
   public ngOnInit() {
     this.chargePageItems();
     this.initializeSorter();
   }
-  initializeSorter() {
-    this.sortByOptions = [ { key: 'status' }, { key: 'species' }, { key: 'gender' }];
+  private initializeSorter() {
+    this.sortByOptions = [{ key: 'status' }, { key: 'species' }, { key: 'gender' }];
   }
 
   override getPathResource(): string {
@@ -28,5 +28,5 @@ export class CharactersPage extends ListsAbstractPage implements OnInit {
   }
 
 
-   
-  }
+
+}
