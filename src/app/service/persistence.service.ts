@@ -5,11 +5,10 @@ import { Injectable } from '@angular/core';
 })
 export class PersistenceService {
 
-  private localStorageKey = 'favoriteList';
   constructor() { }
 
-  public loadFavoriteListFromLocalStorage(): any {
-    const storedData = localStorage.getItem(this.localStorageKey);
+  public getFromLocalStorage(key: string): any {
+    const storedData = localStorage.getItem(key);
     if (storedData) {
       return JSON.parse(storedData);
     } else {
@@ -17,7 +16,7 @@ export class PersistenceService {
     }
   }
 
-  public saveFavoriteListToLocalStorage(favoriteList: any[]) {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(favoriteList));
+  public setToLocalStorage(key:string, value: any) {
+    localStorage.setItem(key, JSON.stringify(value));
   }
 }

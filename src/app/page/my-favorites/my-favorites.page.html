@@ -1,22 +1,106 @@
+<!--<ng-container *ngIf="getFavoriteList().length > 0">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>my favorite characters</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content [fullscreen]="true">
+    <ion-searchbar [debounce]="1000" [(ngModel)]="searchText" placeholder="Name Charater"></ion-searchbar>
+    <ion-list>
+      <ion-item-sliding *ngFor="let favorite of getFavoriteList()">
+        <ion-item [routerLink]="['/profile/'+ favorite.id]">
+          <ion-avatar slot="start">
+            <img src={{favorite.image}} />
+          </ion-avatar>
+          <ion-label>
+            {{favorite.name}}
+          </ion-label>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option color="danger" (click)="deleteItem($event, favorite)">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-content>
+</ng-container>
+
+<ng-container *ngIf="getFavoriteList().length === 0">
+  <ion-content>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>No favorites</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        Puedes añadir los personajes que quieras a tu lista de favoritos:
+      </ion-card-content>
+      <ion-button (click)="navigate('/characters')">Buscar personajes</ion-button>
+    </ion-card>
+  </ion-content>
+</ng-container>-->
 <ion-header>
   <ion-toolbar>
-    <ion-title>my favorites</ion-title>
+    <ion-title>my favorite</ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="selectedSegment">
+      <ion-segment-button *ngFor="let button of listButton" [value]="button">
+        <ion-label>{{button}}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
+
+
 <ion-content>
-  <ion-list>
-    <ion-item (click)="navigate('/my-favorite-characters')">
-      <ion-icon name="star" slot="start"></ion-icon>
-      <ion-label>My Favorite Characters</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-icon name="star" slot="start"></ion-icon>
-      <ion-label>My Favorite Episodes</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-icon name="star" slot="start"></ion-icon>
-      <ion-label>My Favorite Locations</ion-label>
-    </ion-item>
-  </ion-list>
+  <ng-container *ngIf="selectedSegment === 'Characters'">
+    <ng-container *ngIf="getFavoriteList().length > 0">
+      <ion-content [fullscreen]="true">
+        <ion-searchbar [debounce]="1000" [(ngModel)]="searchText" placeholder="Name Charater"></ion-searchbar>
+        <ion-list>
+          <ion-item-sliding *ngFor="let favorite of getFavoriteList()">
+            <ion-item [routerLink]="['/profile/'+ favorite.id]">
+              <ion-avatar slot="start">
+                <img src={{favorite.image}} />
+              </ion-avatar>
+              <ion-label>
+                {{favorite.name}}
+              </ion-label>
+            </ion-item>
+            <ion-item-options side="end">
+              <ion-item-option color="danger" (click)="deleteItem($event, favorite)">
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+      </ion-content>
+    </ng-container>
+
+    <ng-container *ngIf="getFavoriteList().length === 0">
+      <ion-content>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>No favorites</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            Puedes añadir los personajes que quieras a tu lista de favoritos:
+          </ion-card-content>
+          <ion-button (click)="navigate('/characters')">Buscar personajes</ion-button>
+        </ion-card>
+      </ion-content>
+    </ng-container>
+  </ng-container>
+  <ion-item *ngIf="selectedSegment === 'Episode'">
+    {{selectedSegment}}
+  </ion-item>
+  <ion-item *ngIf="selectedSegment === 'Location'">
+    {{selectedSegment}}
+  </ion-item>
+
 </ion-content>

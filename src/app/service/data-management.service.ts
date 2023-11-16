@@ -13,7 +13,7 @@ export class DataManagementService {
 
   constructor(protected rest: CharactersRestService, private persistenceService: PersistenceService) {
 
-    this.favoriteList = this.persistenceService.loadFavoriteListFromLocalStorage();
+    this.favoriteList = this.persistenceService.getFromLocalStorage('characterFavoriteList');
   }
 
   getFindId(path: string, id: number): Promise<any> {
@@ -58,7 +58,7 @@ export class DataManagementService {
     if (index !== -1) {
       this.favoriteList.splice(index, 1);
     }
-    this.persistenceService.saveFavoriteListToLocalStorage(this.favoriteList);
+    this.persistenceService.setToLocalStorage('characterFavoriteList', this.favoriteList);
 
     console.log(this.favoriteList);
   }
@@ -66,7 +66,7 @@ export class DataManagementService {
   addFavoriteList(item: any) {
     this.favoriteList.push(item);
 
-    this.persistenceService.saveFavoriteListToLocalStorage(this.favoriteList);
+    this.persistenceService.setToLocalStorage('characterFavoriteList', this.favoriteList);
     console.log(this.favoriteList);
   }
 
