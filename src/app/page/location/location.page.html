@@ -39,8 +39,8 @@
         </ion-label>
       </ion-item>
       <ion-item-options side="end">
-        <ion-item-option (click)="toggleFavorite(result)">
-          <ion-icon slot="icon-only" [name]="isFavorite(result) ?'star' : 'star-outline'"></ion-icon>
+        <ion-item-option (click)="toggleFavorite('location', result)">
+          <ion-icon slot="icon-only" [name]="isFavorite('location',result) ?'star' : 'star-outline'"></ion-icon>
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>

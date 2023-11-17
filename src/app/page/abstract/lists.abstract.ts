@@ -23,8 +23,8 @@ export abstract class ListsAbstractPage {
     abstract getPathResource(): string;
 
 
-    async toggleFavorite(item: any) {
-        if (this.isFavorite(item)) {
+    async toggleFavorite(option: string, item: any) {
+        if (this.isFavorite(option, item)) {
             const alert = await this.alertController.create({
                 header: 'Quitar favorito',
                 message: `¿Estás seguro de que quieres quitar como favorito?`,
@@ -35,7 +35,7 @@ export abstract class ListsAbstractPage {
                     }, {
                         text: 'Eliminar',
                         handler: () => {
-                            this.datamanagement.deleteFavoriteList(item);
+                            this.datamanagement.deleteFavoriteList(option, item);
                             console.log('Ítem borrado:');
                         }
                     }
@@ -45,7 +45,7 @@ export abstract class ListsAbstractPage {
             await alert.present();
 
         } else {
-            this.datamanagement.addFavoriteList(item);
+            this.datamanagement.addFavoriteList(option, item);
         }
     }
 
@@ -65,8 +65,8 @@ export abstract class ListsAbstractPage {
         }, 500);
     }
 
-    public isFavorite(item: any): boolean {
-        return this.datamanagement.isFavorite(item);
+    public isFavorite(option: string, item: any): boolean {
+        return this.datamanagement.isFavorite(option, item);
     }
 
     public getList(): any[] {

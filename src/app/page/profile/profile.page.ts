@@ -24,8 +24,8 @@ export class ProfilePage implements OnInit {
   }
 
 
-  async toggleFavorite(character: any) {
-    if (this.isFavorite(character)) {
+  async toggleFavorite(option: string, character: any) {
+    if (this.isFavorite(option, character)) {
       const alert = await this.alertController.create({
         header: 'Quitar favorito',
         message: `¿Estás seguro de que quieres quitar como favorito?`,
@@ -36,7 +36,7 @@ export class ProfilePage implements OnInit {
           }, {
             text: 'Eliminar',
             handler: () => {
-              this.characterdatamanagement.deleteFavoriteList(character);
+              this.characterdatamanagement.deleteFavoriteList(option, character);
               console.log('Ítem borrado:');
             }
           }
@@ -46,20 +46,20 @@ export class ProfilePage implements OnInit {
       await alert.present();
 
     } else {
-      this.characterdatamanagement.addFavoriteList(character);
+      this.characterdatamanagement.addFavoriteList(option, character);
     }
   }
 
-  async getCharacterDetail (){
-    if(this.profileId){
-      this.characterdatamanagement.getFindId(this.urlCharacter,this.profileId).then(res => {
+  async getCharacterDetail() {
+    if (this.profileId) {
+      this.characterdatamanagement.getFindId(this.urlCharacter, this.profileId).then(res => {
         console.log(res);
         this.character = res;
       });
     }
   }
-  isFavorite(item:any):boolean {
-    return this.characterdatamanagement.isFavorite(item);
+  isFavorite(option: string, item: any): boolean {
+    return this.characterdatamanagement.isFavorite(option, item);
   }
 
 }

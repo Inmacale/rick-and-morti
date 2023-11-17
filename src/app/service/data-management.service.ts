@@ -9,11 +9,15 @@ import { PersistenceService } from './persistence.service';
 export class DataManagementService {
 
 
-  favoriteList: any[] = [];
+  favoriteListCharacters: any[] = [];
+  favoriteListEpisodes: any[] = [];
+  favoriteListLoctions: any[] = [];
 
   constructor(protected rest: CharactersRestService, private persistenceService: PersistenceService) {
 
-    this.favoriteList = this.persistenceService.getFromLocalStorage('characterFavoriteList');
+    this.favoriteListCharacters = this.persistenceService.getFromLocalStorage('characters');
+    this.favoriteListEpisodes = this.persistenceService.getFromLocalStorage('episode');
+    this.favoriteListLoctions = this.persistenceService.getFromLocalStorage('location');
   }
 
   getFindId(path: string, id: number): Promise<any> {
@@ -28,7 +32,7 @@ export class DataManagementService {
   }
 
   getFindAll(path: string, params?: any): Promise<any> {
-    console.log (path);
+    console.log(path);
     return lastValueFrom(this.rest.getAll(path, params))
       .then((res: any) => {
         console.log(res);
@@ -40,8 +44,25 @@ export class DataManagementService {
       });
   }
 
-  isFavorite(item: any): boolean {
-    let itemFound = this.favoriteList.find(elem => elem.id === item?.id);
+  isFavorite(option: string, item: any): boolean {
+    switch (option) {
+      case 'characters':
+        return this.isFavoriteForOption(this.favoriteListCharacters, item);
+
+      case 'episode':
+        return this.isFavoriteForOption(this.favoriteListEpisodes, item);
+
+      case 'location':
+        return this.isFavoriteForOption(this.favoriteListLoctions, item);
+      default:
+        console.error('Opción no valido');
+        return false;
+
+    }
+  }
+
+  isFavoriteForOption(list: any[], item: any): boolean {
+    let itemFound = list.find(elem => elem.id === item?.id);
     if (itemFound) {
       return true;
     } else {
@@ -50,27 +71,68 @@ export class DataManagementService {
   }
 
 
-  deleteFavoriteList(item: any) {
+  deleteListForOption(list: any[], option: string, item: any) {
 
-    let itemFound = this.favoriteList.find(elem => elem.id === item.id);
-
-    const index = this.favoriteList.indexOf(itemFound);
+    let itemFound = list.find(elem => elem.id === item.id);
+    const index = list.indexOf(itemFound);
     if (index !== -1) {
-      this.favoriteList.splice(index, 1);
+      list.splice(index, 1);
     }
-    this.persistenceService.setToLocalStorage('characterFavoriteList', this.favoriteList);
-
-    console.log(this.favoriteList);
+    this.persistenceService.setToLocalStorage(option, list);
   }
 
-  addFavoriteList(item: any) {
-    this.favoriteList.push(item);
 
-    this.persistenceService.setToLocalStorage('characterFavoriteList', this.favoriteList);
-    console.log(this.favoriteList);
+  deleteFavoriteList(option: string, item: any) {
+    switch (option) {
+      case 'characters':
+        this.deleteListForOption(this.favoriteListCharacters, option, item);
+        break;
+      case 'episode':
+        this.deleteListForOption(this.favoriteListEpisodes, option, item);
+        break;
+      case 'location':
+        this.deleteListForOption(this.favoriteListLoctions, option, item);
+        break;
+    }
+
+
   }
 
-  getFavoriteList(): any[] {
-    return this.favoriteList;
+  addFavoriteList(option: string, item: any) {
+
+    switch (option) {
+      case 'characters':
+        this.favoriteListCharacters.push(item);
+        this.persistenceService.setToLocalStorage(option, this.favoriteListCharacters);
+        break;
+      case 'episode':
+        this.favoriteListEpisodes.push(item);
+        this.persistenceService.setToLocalStorage(option, this.favoriteListEpisodes);
+        break;
+      case 'location':
+        this.favoriteListLoctions.push(item);
+        this.persistenceService.setToLocalStorage(option, this.favoriteListLoctions);
+        break;
+      default:
+        throw new Error('Opción no valido')
+    }
+  }
+
+  getFavoriteList(option: string): any[] {
+
+    switch (option) {
+      case 'characters':
+        return this.favoriteListCharacters;
+      case 'episode':
+        return this.favoriteListEpisodes;
+      case 'location':
+        return this.favoriteListLoctions;
+      default:
+        console.error('Opción no valido');
+        return [];
+
+
+    }
+
   }
 }
