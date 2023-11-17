@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, NavController } from '@ionic/angular';
+import { AlertController, NavController, SegmentChangeEventDetail } from '@ionic/angular';
+import { IonSegmentCustomEvent } from '@ionic/core';
 import { CharacterDto } from 'src/app/model/character';
 import { DataManagementService } from 'src/app/service/data-management.service';
 
@@ -10,6 +11,7 @@ import { DataManagementService } from 'src/app/service/data-management.service';
     styleUrls: ['./my-favorites.page.scss'],
 })
 export class MyFavoritesPage implements OnInit {
+
 
     searchText: string = '';
     selectedSegment: string = 'characters';
@@ -52,7 +54,16 @@ export class MyFavoritesPage implements OnInit {
     }
 
     public getFavoriteList(option: string): any[] {
+        return this.dataManagement.getFavoriteList(option);
+    }
+
+    public getFavoriteListFilter(option: string): any[] {
         return this.dataManagement.getFavoriteList(option).filter((item) => item.name.toLowerCase().includes(this.searchText.toLocaleLowerCase()));
+    }
+
+
+    segmentChanged(event: CustomEvent) {
+        this.searchText = '';
     }
 
 

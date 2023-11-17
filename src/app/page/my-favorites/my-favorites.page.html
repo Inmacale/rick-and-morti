@@ -4,7 +4,7 @@
   </ion-toolbar>
 
   <ion-toolbar>
-    <ion-segment [(ngModel)]="selectedSegment">
+    <ion-segment [(ngModel)]="selectedSegment" (ionChange)="segmentChanged($event)">
       <ion-segment-button *ngFor="let button of listButton" [value]="button">
         <ion-label>{{button}}</ion-label>
       </ion-segment-button>
@@ -20,7 +20,7 @@
       <ion-content [fullscreen]="true">
         <ion-searchbar [debounce]="1000" [(ngModel)]="searchText" placeholder="Name Charater"></ion-searchbar>
         <ion-list>
-          <ion-item-sliding *ngFor="let favorite of getFavoriteList('characters')">
+          <ion-item-sliding *ngFor="let favorite of getFavoriteListFilter('characters')">
             <ion-item [routerLink]="['/profile/'+ favorite.id]">
               <ion-avatar slot="start">
                 <img src={{favorite.image}} />
@@ -61,7 +61,7 @@
       <ion-content [fullscreen]="true">
         <ion-searchbar [debounce]="1000" [(ngModel)]="searchText" placeholder="Name Episode"></ion-searchbar>
         <ion-list>
-          <ion-item-sliding *ngFor="let favorite of getFavoriteList('episode')">
+          <ion-item-sliding *ngFor="let favorite of getFavoriteListFilter('episode')">
             <ion-item>
               <ion-label>
                 {{favorite.name}}
@@ -87,7 +87,7 @@
           <ion-card-content>
             Puedes añadir los personajes que quieras a tu lista de favoritos:
           </ion-card-content>
-          <ion-button (click)="navigate('/episode')">Buscar personajes</ion-button>
+          <ion-button (click)="navigate('/episode')">Buscar episodes</ion-button>
         </ion-card>
       </ion-content>
     </ng-container>
@@ -98,7 +98,7 @@
       <ion-content [fullscreen]="true">
         <ion-searchbar [debounce]="1000" [(ngModel)]="searchText" placeholder="Name Charater"></ion-searchbar>
         <ion-list>
-          <ion-item-sliding *ngFor="let favorite of getFavoriteList('location')">
+          <ion-item-sliding *ngFor="let favorite of getFavoriteListFilter('location')">
             <ion-item>
               <ion-label>
                 {{favorite.name}}
@@ -124,7 +124,7 @@
           <ion-card-content>
             Puedes añadir los personajes que quieras a tu lista de favoritos:
           </ion-card-content>
-          <ion-button (click)="navigate('/location')">Buscar personajes</ion-button>
+          <ion-button (click)="navigate('/location')">Buscar locations</ion-button>
         </ion-card>
       </ion-content>
     </ng-container>
