@@ -2,6 +2,12 @@
     ion-tab-bar {
         height: 50px;
         border-radius: 20px;
+
+        ion-tab-button {
+            &.tab-selected {
+                border-top: var(--app-border);
+            }
+        }
     }
 
 

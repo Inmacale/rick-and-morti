@@ -74,10 +74,14 @@
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
 
+}
 
+:root {
   --ion-dynamic-font: var(--ion-default-dynamic-font);
   --ion-font-family: 'Comic Sans MS';
   --ion-text-color: var(--ion-color-primary);
+  --app-border-radius: 8px;
+  --app-border: 2px solid var(--ion-color-primary);
 
 }
 
