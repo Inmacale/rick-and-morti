@@ -1,0 +1,18 @@
+ion-segment {
+
+    --background: #fff;
+
+    ion-segment-button {
+        --indicator-color: var(--ion-color-primary);
+        --color-checked: #fff;
+        --border-radius: 20px;
+
+        &::before {
+            opacity: 0;
+        }
+
+        &::part(indicator) {
+            padding-inline: 0;
+        }
+    }
+}

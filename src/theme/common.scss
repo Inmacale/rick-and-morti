@@ -9,7 +9,26 @@ ion-item-sliding {
     padding: 5px;
     margin: 5px 0;
 
-    &-ion-item {
-        --background-color: red;
+    &.item-sliding-active-options-end {
+
+        ion-item {
+            --background: var(--ion-color-primary-shade);
+
+            ion-label {
+
+                h4,
+                p {
+                    color: #fff;
+                }
+            }
+        }
+
+    }
+
+}
+
+ion-header {
+    ion-toolbar {
+        --background: #fff;
     }
 }
